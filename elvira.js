@@ -429,7 +429,6 @@ CmdUtils.CreateCommand({
 				}
 			jQuery.get('http://elvira.mav-start.hu/elvira.dll/xslms/uf?mikor=-1&i='+ source +'&e=' + goal + '&sk=5&d='+ datum +'&u=' + u, null, function (page) {
 				var elviracska ="";
-				Utils.log($("#searchtop > .box1 > .lboxbody1 > .xform > div:eq(4)", page).html());
 				if ($("#searchtop > .box1 > .lboxbody1 > .xform > div:eq(4)", page).html() == "missing or misspelled station name") {
 					pb.innerHTML = "misspelled station name?"
 				}
@@ -438,7 +437,7 @@ CmdUtils.CreateCommand({
 						pb.innerHTML = "no more trains on date.";
 					} else {
 						$("div#timetable > table > tbody > tr > td.noprint > div.jsubmit > form.jsubmit > input[type=submit]", page).each(function(i) {
-						        var honnan = $(this).parent().parent().parent().siblings().filter(".l:eq(0)").text().trim();
+						        var honnan = $(this).parent().parent().parent().siblings().filter(".l:eq(3)").text();
 						        var indul = $(this).parent().parent().parent().siblings().filter(".l:eq(1)").text().trim();
 						        var erkezik = $(this).parent().parent().parent().siblings().filter(".l:eq(2)").text().trim();
 						        var masodosztalyar = $(this).parent().parent().parent().siblings().filter(".r:eq(2)").text().trim();
