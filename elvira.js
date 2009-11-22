@@ -389,12 +389,12 @@ CmdUtils.CreateCommand({
 	arguments: [
 		{
 			role: "source",
-			nountype: mav,
+			nountype: noun_arb_text,
 			label: "origin",
 		},
 		{
 			role: "goal",
-			nountype: mav,
+			nountype: noun_arb_text,
 			label: "destination",
 		},
 		{
@@ -409,6 +409,7 @@ CmdUtils.CreateCommand({
 		},
 	],
 	preview: function (pb, arguments) {
+		pb.innerHTML = "(spinner...)"
 		$.ajaxSetup({
 		    'beforeSend' : function(xhr) {
 	            xhr.overrideMimeType('text/html; charset=ISO-8859-2');
@@ -428,15 +429,26 @@ CmdUtils.CreateCommand({
 				}
 			jQuery.get('http://elvira.mav-start.hu/elvira.dll/xslms/uf?mikor=-1&i='+ source +'&e=' + goal + '&sk=5&d='+ datum +'&u=' + u, null, function (page) {
 				var elviracska ="";
-				$("div#timetable > table > tbody > tr > td.noprint > div.jsubmit > form.jsubmit > input[type=submit]", page).each(function(i) {
-				        var honnan = $(this).parent().parent().parent().siblings().filter(".l:eq(0)").text().trim();
-				        var indul = $(this).parent().parent().parent().siblings().filter(".l:eq(1)").text().trim();
-				        var erkezik = $(this).parent().parent().parent().siblings().filter(".l:eq(2)").text().trim();
-				        var masodosztalyar = $(this).parent().parent().parent().siblings().filter(".r:eq(2)").text().trim();
-				        var rendeleslink = "https://jegyvasarlas.mav-start.hu/eTicketV2/Jegykivalasztas?" + $(this).parent().serialize();
-					elviracska += '<li><a href="'+ rendeleslink +'">'+honnan+' - '+indul+'-'+erkezik+' : '+masodosztalyar+'</a></li>';
-				})
-				pb.innerHTML = elviracska;
+				Utils.log($("#searchtop > .box1 > .lboxbody1 > .xform > div:eq(4)", page).html());
+				if ($("#searchtop > .box1 > .lboxbody1 > .xform > div:eq(4)", page).html() == "missing or misspelled station name") {
+					pb.innerHTML = "misspelled station name?"
+				}
+				else {
+					if ($("div#timetable > table > tbody > tr > td.noprint > div.jsubmit > form.jsubmit > input[type=submit]", page).length == 0) {
+						pb.innerHTML = "no more trains on date.";
+					} else {
+						$("div#timetable > table > tbody > tr > td.noprint > div.jsubmit > form.jsubmit > input[type=submit]", page).each(function(i) {
+						        var honnan = $(this).parent().parent().parent().siblings().filter(".l:eq(0)").text().trim();
+						        var indul = $(this).parent().parent().parent().siblings().filter(".l:eq(1)").text().trim();
+						        var erkezik = $(this).parent().parent().parent().siblings().filter(".l:eq(2)").text().trim();
+						        var masodosztalyar = $(this).parent().parent().parent().siblings().filter(".r:eq(2)").text().trim();
+						        var rendeleslink = "https://jegyvasarlas.mav-start.hu/eTicketV2/Jegykivalasztas?" + $(this).parent().serialize();
+							elviracska += '<li><a href="'+ rendeleslink +'">'+honnan+' - '+indul+'-'+erkezik+' : '+masodosztalyar+'</a></li>';
+						})
+						pb.innerHTML = elviracska;					
+					}					
+				}
+				
 			})
 		}
 		return;
