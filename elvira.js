@@ -409,9 +409,10 @@ CmdUtils.CreateCommand({
 		},
 	],
 	preview: function (pb, arguments) {
-		pb.innerHTML = "(spinner...)"
+		pb.innerHTML = _("(spinner...)");
 		$.ajaxSetup({
 		    'beforeSend' : function(xhr) {
+				//karácsonyra igazán kérhetnétek utf8-at.
 	            xhr.overrideMimeType('text/html; charset=ISO-8859-2');
 	    	    },
 		});
@@ -428,7 +429,8 @@ CmdUtils.CreateCommand({
 						break;
 				}
 			jQuery.get('http://elvira.mav-start.hu/elvira.dll/xslms/uf?mikor=-1&i='+ source +'&e=' + goal + '&sk=5&d='+ datum +'&u=' + u, null, function (page) {
-				var elviracska ="";
+				// ennél undorítóbban nem is lehetne inline css-t...
+				elviracska = "<style>.more {display:none; background-color:black; margin-left:20px; margin-right:20px;} li:hover a.train {color:red} li:hover .more {display:block}</style>";
 				if ($("#searchtop > .box1 > .lboxbody1 > .xform > div:eq(4)", page).html() == "missing or misspelled station name") {
 					pb.innerHTML = "misspelled station name?"
 				}
@@ -436,13 +438,17 @@ CmdUtils.CreateCommand({
 					if ($("div#timetable > table > tbody > tr > td.noprint > div.jsubmit > form.jsubmit > input[type=submit]", page).length == 0) {
 						pb.innerHTML = "no more trains on date.";
 					} else {
+
 						$("div#timetable > table > tbody > tr > td.noprint > div.jsubmit > form.jsubmit > input[type=submit]", page).each(function(i) {
 						        var honnan = $(this).parent().parent().parent().siblings().filter(".l:eq(3)").text();
 						        var indul = $(this).parent().parent().parent().siblings().filter(".l:eq(1)").text().trim();
 						        var erkezik = $(this).parent().parent().parent().siblings().filter(".l:eq(2)").text().trim();
 						        var masodosztalyar = $(this).parent().parent().parent().siblings().filter(".r:eq(2)").text().trim();
 						        var rendeleslink = "https://jegyvasarlas.mav-start.hu/eTicketV2/Jegykivalasztas?" + $(this).parent().serialize();
-							elviracska += '<li><a href="'+ rendeleslink +'">'+honnan+' - '+indul+'-'+erkezik+' : '+masodosztalyar+'</a></li>';
+								var reszletesdoboz = $(this).parent().parent().parent().parent().next().children().html(); // hogyan tudom ezt beformázni?
+							elviracska += _('<li><a class="train" href="${rendeleslink}">${honnan} - ${indul}-${erkezik} ${masodosztalyar}</a>${reszletesdoboz}</li>', 
+							{rendeleslink: rendeleslink, honnan:honnan, indul:indul, erkezik:erkezik, masodosztalyar:masodosztalyar, reszletesdoboz:reszletesdoboz});
+							// elviracska += '<div class="details">'+reszletesdoboz+'</div></li>';
 						})
 						pb.innerHTML = elviracska;					
 					}					
