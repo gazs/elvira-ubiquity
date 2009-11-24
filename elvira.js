@@ -25,7 +25,7 @@ CmdUtils.CreateCommand({
 		},
 		{
 			role: "alias",
-			nountype: ["student"],
+			nountype: ["student", "u26", "bike", "bikeclub"],
 			label: "reduction" //izé, kedvezmény.
 		},
 		{
@@ -39,14 +39,24 @@ CmdUtils.CreateCommand({
 		var goal = escape(Utils.convertFromUnicode("ISO-8859-2", arguments.goal.text));
 		var via = escape(Utils.convertFromUnicode("ISO-8859-2", arguments.instrument.text));
 		var datum = arguments.time.data.toString("yy.MM.dd");
+		var u = 29;
 		if (source.length >0 && goal.length >0) {
 			switch (arguments.alias.text) {
 				// TODO: többi kedvezmény.
 				case "student":
-					var u=1;
+					u=1;
+					break;
+				case "u26":
+					u=17;
+					break;
+				case "bike":
+					u=35;
+					break;
+				case "bikeclub":
+					u=33;
 					break;
 				default:
-					var u=29;
+					u=29;
 					break;
 			}
 			return elvira_url + Utils.paramsToString({
