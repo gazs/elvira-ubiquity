@@ -3,7 +3,7 @@ var elvira_url = "http://elvira.mav-start.hu/elvira.dll/xslms/uf";
 CmdUtils.CreateCommand({
 	names: ["elvira"],
 	description: "Check Elvira timetable",
-	help: "elvira (from) (to) (with via) (as student) (at [date])",
+	help: "elvira (from) (to) (with via) (as student, u26, bike or bikeclub) (at [date])",
 	icon: "http://elvira.mav-start.hu/xslms/res/favicon.ico",
 	author: {name: "Gazs (piszkalta: KTamas)", email: "gazs@bergengocia.net (ktamas@ktamas.com)"},
 	license: "GPL",
