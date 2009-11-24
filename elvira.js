@@ -3,7 +3,7 @@ var elvira_url = "http://elvira.mav-start.hu/elvira.dll/xslms/uf";
 CmdUtils.CreateCommand({
 	names: ["elvira"],
 	description: "Check Elvira timetable",
-	help: "elvira (from) (to) (as student) (at [date])",
+	help: "elvira (from) (to) (via) (as student) (at [date])",
 	icon: "http://elvira.mav-start.hu/xslms/res/favicon.ico",
 	author: {name: "Gazs", email: "gazs@bergengocia.net"},
 	license: "GPL",
@@ -11,23 +11,28 @@ CmdUtils.CreateCommand({
 		{
 			role: "source",
 			nountype: noun_arb_text,
-			label: "origin",
+			label: "origin"
 		},
 		{
 			role: "goal",
 			nountype: noun_arb_text,
-			label: "destination",
+			label: "destination"
+		},
+		{
+			role: "instrument",
+			nountype: noun_arb_text,
+			label: "via"
 		},
 		{
 			role: "alias",
 			nountype: ["student"],
-			label: "reduction", //izé, kedvezmény.
+			label: "reduction" //izé, kedvezmény.
 		},
 		{
 			role: "time",
 			nountype: noun_type_date,
-			label: "date of departure",
-		},
+			label: "date of departure"
+		}
 	],
 	preview: function (pb, arguments) {
 		pb.innerHTML = this.previewDefault();
@@ -40,6 +45,7 @@ CmdUtils.CreateCommand({
 
 		var source = escape(Utils.convertFromUnicode("ISO-8859-2", arguments.source.text));
 		var goal = escape(Utils.convertFromUnicode("ISO-8859-2", arguments.goal.text));
+		var via = escape(Utils.convertFromUnicode("ISO-8859-2", arguments.instrument.text));
 		var datum = arguments.time.data.toString("yy.MM.dd");
 		if (source.length >0 && goal.length >0) {
 			switch (arguments.alias.text) {
@@ -59,7 +65,8 @@ CmdUtils.CreateCommand({
 					i: source, 
 					e: goal, 
 					d: datum, 
-					u: 1,
+					u: u, // nem gazs nem jo ha default a student
+					v: via
 				}),
 				function(page) {
 					elvi = []
@@ -97,13 +104,23 @@ CmdUtils.CreateCommand({
 		var datum = arguments.time.data.toString("yy.MM.dd");
 		var source = escape(Utils.convertFromUnicode("ISO-8859-2", arguments.source.text));
 		var goal = escape(Utils.convertFromUnicode("ISO-8859-2", arguments.goal.text));
-		
+		var via = escape(Utils.convertFromUnicode("ISO-8859-2", arguments.instrument.text));
+		switch (arguments.alias.text) {
+			// TODO: többi kedvezmény.
+			case "student":
+				var u=1;
+				break;
+			default:
+				var u=29;
+				break;
+		}
 		Utils.focusUrlInBrowser(elvira_url + Utils.paramsToString({
 			mikor: -1, 
 			i: source, 
 			e: goal, 
 			d: datum, 
-			u: 1,
+			u: u,
+			v: via
 		}));
 		return;
 	}
