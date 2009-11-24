@@ -5,7 +5,7 @@ CmdUtils.CreateCommand({
 	description: "Check Elvira timetable",
 	help: "elvira (from) (to) (with via) (as student) (at [date])",
 	icon: "http://elvira.mav-start.hu/xslms/res/favicon.ico",
-	author: {name: "Gazs", email: "gazs@bergengocia.net"},
+	author: {name: "Gazs (piszkalta: KTamas)", email: "gazs@bergengocia.net (ktamas@ktamas.com)"},
 	license: "GPL",
 	arguments: [
 		{
