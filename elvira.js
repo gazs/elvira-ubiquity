@@ -94,7 +94,7 @@ CmdUtils.CreateCommand({
 							var masodosztalyar = basepath.filter(".r:eq(2)").text().trim();
 							var rendeleslink = "https://jegyvasarlas.mav-start.hu/eTicketV2/Jegykivalasztas?" + $(this).parent().serialize();
 							var reszletesdoboz = $(this).parent().parent().parent().parent().next().children().html(); // hogyan tudom ezt beformázni?
-							elvi.push(_('<div id="${rendeleslink}">${honnan} - ${indul}-${erkezik} ${masodosztalyar} ${reszletesdoboz}</div>', //div id?? srsly??
+							elvi.push(_('<span id="${rendeleslink}">${honnan} - ${indul}-${erkezik} ${masodosztalyar} ${reszletesdoboz}</span>', //div id?? srsly??
 							{rendeleslink: rendeleslink, honnan:honnan, indul:indul, erkezik:erkezik, masodosztalyar:masodosztalyar, reszletesdoboz:reszletesdoboz}));
 						});
 						CmdUtils.previewList(pb, elvi, function(id, ev) {
