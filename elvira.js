@@ -64,15 +64,15 @@ CmdUtils.CreateCommand({
 		//karácsonyra igazán kérhetnétek utf8-at.
 		$.ajaxSetup({'beforeSend' : function(xhr) {
 			xhr.overrideMimeType('text/html; charset=ISO-8859-2');
-	    	},
+			}
 		});
 		CmdUtils.previewGet(pb, this.elviraurl(arguments),
 			function(page) {
-				elvi = []
+				elvi = [];
 				if ($("#searchtop > .box1 > .lboxbody1 > .xform > div:eq(4)", page).html() == "missing or misspelled station name") {
-					pb.innerHTML = "misspelled station name?"
+					pb.innerHTML = "misspelled station name?";
 				} else {
-					if ($("div#timetable > table > tbody > tr > td.noprint > div.jsubmit > form.jsubmit > input[type=submit]", page).length == 0) {
+					if ($("div#timetable > table > tbody > tr > td.noprint > div.jsubmit > form.jsubmit > input[type=submit]", page).length === 0) {
 						pb.innerHTML = "no more trains on date.";
 					} else {
 						$("div#timetable > table > tbody > tr > td.noprint > div.jsubmit > form.jsubmit > input[type=submit]", page).each(function(i) {
@@ -84,11 +84,11 @@ CmdUtils.CreateCommand({
 					        var rendeleslink = "https://jegyvasarlas.mav-start.hu/eTicketV2/Jegykivalasztas?" + $(this).parent().serialize();
 							var reszletesdoboz = $(this).parent().parent().parent().parent().next().children().html(); // hogyan tudom ezt beformázni?
 							elvi.push(_('<div id="${rendeleslink}">${honnan} - ${indul}-${erkezik} ${masodosztalyar} ${reszletesdoboz}</div>', //div id?? srsly??
-							{rendeleslink: rendeleslink, honnan:honnan, indul:indul, erkezik:erkezik, masodosztalyar:masodosztalyar, reszletesdoboz:reszletesdoboz}))
-						})
+							{rendeleslink: rendeleslink, honnan:honnan, indul:indul, erkezik:erkezik, masodosztalyar:masodosztalyar, reszletesdoboz:reszletesdoboz}));
+						});
 						CmdUtils.previewList(pb, elvi, function(id, ev) {
-							Utils.focusUrlInBrowser($(elvi[id]).attr('id'))
-						}, ".preview-list > li  .more {display:none}; .preview-list > li:hover .more {display:block};.preview-list li:hover {color:red}") 
+							Utils.focusUrlInBrowser($(elvi[id]).attr('id'));
+						}, ".preview-list > li  .more {display:none}; .preview-list > li:hover .more {display:block};.preview-list li:hover {color:red}"); 
 					}
 				}
 			},
