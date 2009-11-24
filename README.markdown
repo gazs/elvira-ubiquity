@@ -1,4 +1,4 @@
-<img src="http://img.skitch.com/20091121-mmk3349ait1wg1ksqugq4nxb82.png">
+<img src="http://img.skitch.com/20091124-pywsgy4t9it1a78rearn4jf7bm.png">
 
 [ubiquity][1] frontend/ige az [elvirához][2]. 
 
