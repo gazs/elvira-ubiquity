@@ -77,7 +77,7 @@ CmdUtils.CreateCommand({
 							pb.innerHTML = "no more trains on date.";
 						} else {
 							$("div#timetable > table > tbody > tr > td.noprint > div.jsubmit > form.jsubmit > input[type=submit]", page).each(function(i) {
-						        var honnan = $(this).parent().parent().parent().siblings().filter(".l:eq(3)").text();
+						        var honnan = $(this).parent().parent().parent().siblings().filter(".l:eq(0)").text();
 						        var indul = $(this).parent().parent().parent().siblings().filter(".l:eq(1)").text().trim();
 						        var erkezik = $(this).parent().parent().parent().siblings().filter(".l:eq(2)").text().trim();
 						        var masodosztalyar = $(this).parent().parent().parent().siblings().filter(".r:eq(2)").text().trim();
