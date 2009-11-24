@@ -7,10 +7,10 @@
 telepítés
 =========
 
-* idővel lesz majd valami github page vagy hasonló, ahol tudok autodiscoveryt és feliratkozást csinálni Ubiquityhez.
-* addig: muszáj lesz kézzel bemásolnod a Hack Ubiquity fül alá a tartalmat.
+* [ebben a gistben a Ubiquity egyből meglátja a benne rejlő szépséget: kiömlött kód helyett az elvira parancsot látja benne][3]
 * ha van jobb ötleted, szólj.
 
 
 [1]:https://mozillalabs.com/ubiquity/
 [2]:http://elvira.mav-start.hu/
+[3]:http://gist.github.com/242094
