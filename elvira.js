@@ -76,10 +76,11 @@ CmdUtils.CreateCommand({
 						pb.innerHTML = "no more trains on date.";
 					} else {
 						$("div#timetable > table > tbody > tr > td.noprint > div.jsubmit > form.jsubmit > input[type=submit]", page).each(function(i) {
-					        var honnan = $(this).parent().parent().parent().siblings().filter(".l:eq(0)").text();
-					        var indul = $(this).parent().parent().parent().siblings().filter(".l:eq(1)").text().trim();
-					        var erkezik = $(this).parent().parent().parent().siblings().filter(".l:eq(2)").text().trim();
-					        var masodosztalyar = $(this).parent().parent().parent().siblings().filter(".r:eq(2)").text().trim();
+							var basepath = $(this).parent().parent().parent().siblings();
+					        var honnan = basepath.filter(".l:eq(0)").text();
+					        var indul = basepath.filter(".l:eq(1)").text().trim();
+					        var erkezik = basepath.filter(".l:eq(2)").text().trim();
+					        var masodosztalyar = basepath.filter(".r:eq(2)").text().trim();
 					        var rendeleslink = "https://jegyvasarlas.mav-start.hu/eTicketV2/Jegykivalasztas?" + $(this).parent().serialize();
 							var reszletesdoboz = $(this).parent().parent().parent().parent().next().children().html(); // hogyan tudom ezt beformázni?
 							elvi.push(_('<div id="${rendeleslink}">${honnan} - ${indul}-${erkezik} ${masodosztalyar} ${reszletesdoboz}</div>', //div id?? srsly??
